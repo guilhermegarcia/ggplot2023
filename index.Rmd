@@ -1,8 +1,8 @@
 ---
-title: "Fonology"
-subtitle: "Análise Fonológica em R"
-author: "Guilherme D. Garcia"
-institute: "• Université Laval •"
+title: "Visualização de dados em ggplot"
+subtitle: ""
+author: "Guilherme D. Garcia e Ronaldo Lima Jr."
+institute: "• Université Laval e UnB•"
 date: ""
 output:
   xaringan::moon_reader:
