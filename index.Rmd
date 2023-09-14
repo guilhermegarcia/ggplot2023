@@ -11,7 +11,6 @@ output:
     includes:
       after_body: "myStyles.css"
     nature:
-      highlightStyle: github
       ratio: '16:9'
       center: true
       slideNumberFormat: "%current% de %total%"
@@ -21,13 +20,19 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+library(tidyverse)
+library(Hmisc)
+library(languageR)
 library(fontawesome)
+data(english)
+
 options(htmltools.dir.version = FALSE)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
 ```
 
 class: title-slide, inverse, center, middle
@@ -62,8 +67,6 @@ xaringanExtra::use_extra_styles(
 
 ## Apresentação
 
-- ...
-
 ---
 
 ## Questionário
@@ -72,17 +75,413 @@ xaringanExtra::use_extra_styles(
 
 ---
 
+## Preparação
+
+- Dados utilisados: `english` (pacote `languageR`)
+
+```{r}
+data(english)
+english = english |> 
+  select(RTlexdec, Familiarity, Word, AgeSubject)
+glimpse(english)
+```
+
+
+---
+
+
+
 ## Tipos de gráficos
+
+### y contínuo e x categórico
+
+```{r, out.width="50%", echo=FALSE, cache=TRUE, fig.height=4, fig.width = 5, message = FALSE, dpi=500}
+ggplot(data =english, aes(x = AgeSubject, y = RTlexdec)) + 
+  # stat_summary(geom = "bar", width = 0.5, 
+  #              fill = "darkorange2", alpha = 0.5,
+  #              color = "black") +
+  stat_summary() + 
+  theme_classic() +
+  theme(text = element_text(size = 15)) +
+  labs(title = "Média e erro padrão")
+
+ggplot(data =english, aes(x = AgeSubject, y = RTlexdec)) + 
+  stat_summary(geom = "bar", width = 0.5, 
+               fill = "darkorange2", alpha = 0.5,
+               color = "black") +
+  stat_summary() + 
+  theme_classic() +
+  theme(text = element_text(size = 15)) +
+  labs(title = "Com barras")
+
+
+```
+
+---
+
+## Tipos de gráficos
+
+### y contínuo e x categórico
+
+```{r, out.width="50%", echo=FALSE, cache=TRUE, fig.height=4, fig.width = 5, message = FALSE, dpi=500}
+ggplot(data = english, aes(x = AgeSubject, y = RTlexdec)) + 
+  geom_boxplot(fill = "darkorange2", alpha = 0.5) +
+  theme_classic() +
+  theme(text = element_text(size = 15)) +
+  labs(title = "Gráfico de caixas")
+
+ggplot(data =english, aes(x = AgeSubject, y = RTlexdec)) + 
+  geom_violin(fill = "darkviolet", alpha = 0.5) +
+  theme_classic() +
+  theme(text = element_text(size = 15)) +
+  labs(title = "Gráfico de violino")
+
+
+```
+
+---
+
+## Tipos de gráficos
+
+### y e x contínuos
+
+```{r, out.width="50%", echo=FALSE, cache=TRUE, fig.height=4, fig.width = 5, message = FALSE, dpi=500}
+ggplot(data = english, aes(x = Familiarity, y = RTlexdec)) + 
+  geom_point(color = "darkorange2", alpha = 0.2) +
+  theme_classic() +
+  theme(text = element_text(size = 15)) +
+  labs(title = "Gráfico de dispersão")
+
+ggplot(data =english, aes(x = Familiarity, y = RTlexdec)) + 
+  geom_point(color = "darkviolet", alpha = 0.2) +
+  geom_smooth(method = "lm", color = "black") +
+  theme_classic() +
+  theme(text = element_text(size = 15)) +
+  labs(title = "Gráfico de dispersão + tendência",
+       subtitle = "Uma única linha de tendência")
+
+
+```
+
+---
+
+## Tipos de gráficos
+
+### y e x contínuos + z categórico
+
+.pull-left[
+  
+
+```{r, out.width="95%", echo=FALSE, cache=TRUE, fig.height=4, fig.width = 5, message = FALSE, dpi=500, fig.align='center'}
+
+colours = c("darkorange", "royalblue")
+names(colours) = c("old", "young")
+
+customSub = glue::glue('Tempos de reação para
+       <span style="color:{colours["old"]}">**old**</span> 
+       e 
+       <span style="color:{colours["young"]}">**young**</span>')
+
+ggplot(data = english, aes(x = Familiarity, y = RTlexdec, color = AgeSubject)) + 
+  geom_point(alpha = 0.2) +
+  theme_classic() +
+  scale_color_manual(values = c("darkorange2", "royalblue")) +
+  stat_smooth(method = "lm") +
+  theme(text = element_text(size = 15),
+        plot.subtitle = ggtext::element_markdown(),
+        legend.position = "none") +
+  labs(title = "Gráfico de dispersão",
+       subtitle = customSub)
+```
+]
+
+.pull-right[
+
+- Terceira variável (idade) + cor em subtítulo
+
+- Duas linhas de tendência
+
+- Bom grau de informação e fácil leitura 😃
+
+- Eixos podem melhorar (qual a escala de $y$?)  🤨
+
+]
+
+
 
 
 ---
 
 ## Boas práticas
 
+### Alguns pontos a considerar
+
+.pull-left[
+
+
+- Gráfico apropriado aos dados
+
+- Quantidade apropriada de informação
+
+- Tamanho (e tipo) de fonte
+
+- Clareza de variáveis
+
+- Uso consistente de cores
+
+- Alinhamento entre figura e análise
+
+- Consistência ao longo do documento
+]
+
+.pull-right[
+
+- Definição apropriada (≥500 `dpi`) 🫠
+
+```{r, out.width="90%", echo=FALSE, cache=TRUE, fig.height=4, fig.width = 5, message = FALSE, dpi=80, fig.align='center'}
+
+colours = c("darkorange", "royalblue")
+names(colours) = c("old", "young")
+
+customSub = glue::glue('Tempos de reação para
+       <span style="color:{colours["old"]}">**old**</span> 
+       e 
+       <span style="color:{colours["young"]}">**young**</span>')
+
+ggplot(data = english, aes(x = Familiarity, y = RTlexdec, color = AgeSubject)) + 
+  geom_point(alpha = 0.2) +
+  theme_classic() +
+  scale_color_manual(values = c("darkorange2", "royalblue")) +
+  stat_smooth(method = "lm") +
+  theme(text = element_text(size = 8),
+        plot.subtitle = ggtext::element_markdown(),
+        legend.position = "none") +
+  labs(title = "Gráfico de dispersão",
+       subtitle = customSub)
+```
+
+]
+
 
 ---
 
 ## Dos and don'ts
+
+- Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente
+
+- Dados no **eixo x** comparados: painéis empilhados
+
+- Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
+
+---
+
+## Exemplo
+
+Fonte: <https://royal-statistical-society.github.io/datavisguide/>
+
+```{r, echo=FALSE, message=FALSE, out.width="90%", cache=TRUE, fig.height=4, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+
+# Data set creation.
+set.seed(93384)
+
+time <- c(0, 0.5, 1, 2, 4, 8, 12, 16, 24)
+n <- 32 # no of subjects
+
+data <- expand.grid(ID = 1:n, time = time)
+
+bw <- data.frame(
+  ID = sort(unique(data$ID)),
+  bw = rlnorm(n, log(75), sdlog = 0.25)
+)
+
+bw$bw.category <- cut(bw$bw,
+  breaks = quantile(bw$bw, c(0, 0.33, 0.66, 1)),
+  labels = paste(c("low", "medium", "high"), "body weight"),
+  include.lowest = TRUE
+)
+
+data <- merge(data, bw)
+
+data <- data[order(data$ID, data$time), ]
+
+# Simulate drug concentrations as a function of body weight.
+data$conc <- 100 / (data$bw^1.0) * exp(-0.085 * data$time) *
+  rlnorm(nrow(data), sdlog = 0.25) + # res. error
+  (data$ID - mean(data$ID)) / mean(data$ID) / 4 # r. eff
+
+# ---
+# Visualisation.
+library(ggplot2)
+
+gg <- list()
+
+data$ID <- factor(data$ID)
+
+gg[["3x1"]] <- ggplot(data, aes(x = time, y = conc, group = ID, color = ID)) +
+  geom_line()
+gg[["3x1"]] <- gg[["3x1"]] + scale_x_continuous(breaks = seq(0, 24, by = 4))
+gg[["3x1"]] <- gg[["3x1"]] + theme_bw() + 
+  xlab("time [h]") + 
+  ylab("drug concentration [ng/mL]")
+gg[["3x1"]] <- gg[["3x1"]] + facet_grid(bw.category ~ .)
+gg[["3x1"]] <- gg[["3x1"]] + theme(legend.position = "none")
+
+gg[["1x3"]] <- gg[["3x1"]] + facet_grid(. ~ bw.category)
+
+# Add space to the rhs of the first figure for better separation in the cowplot.
+gg[["3x1"]] <- gg[["3x1"]] + 
+  theme(plot.margin = unit(c(0.5, 4, 0.5, 0.5), "lines"))
+
+# Both figures into a single output figure.
+library(cowplot)
+plot_grid(gg[[1]], gg[[2]], rel_widths = c(1.5, 2))
+```
+---
+
+## Proporção de tela (*aspect ratio*)
+
+- Uma figura quadrada evita viés visual na escolha dos eixos y e x
+
+- Uma figura quadrada deve ser considerada se os dois eixos têm algo em comum:
+
+   + pré x pós
+
+   + dados observados x valores previstos pelo modelo
+
+   + mesmas unidades
+
+
+---
+
+## Exemplo
+
+
+Fonte: <https://royal-statistical-society.github.io/datavisguide/>
+
+```{r, echo=FALSE, message=FALSE, out.width="90%", cache=TRUE, fig.height=4, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+
+# Observed vs predicted (any data with comparable x and y will do).
+
+# ---
+# Data set.
+# Old Faithful Geyser (Yellowstone) data set with eruption duration
+#   and waiting time to the next eruption (both in minutes).
+data <- data.frame(
+  x = faithful$eruptions,
+  y = faithful$waiting
+)
+
+# ---
+# Regression model fit.
+fit <- lm(y ~ x, data = data)
+
+# Addition of predicted values to the data set.
+data$pred <- predict(fit)
+
+# Range of y and y predicted combined.
+r <- range(unlist(data[c("y", "pred")]))
+
+# ---
+# Plotting.
+
+library(ggplot2)
+
+gg <- ggplot(data, aes(x = pred, y = y))
+
+# Adding the line of identity, y = x
+# (note: plotting it first will add points on top).
+gg <- gg + geom_abline(intercept = 0, slope = 1, color = "black", linewidth = 1)
+
+# Adding points, removing grey background.
+gg <- gg + geom_point() + theme_bw()
+
+# Adding regression fit (local smoother, loess) of y~x.
+gg <- gg + geom_smooth(method = "loess", color = "firebrick", se = FALSE)
+
+# Adding axis labels.
+gg <- gg + xlab("predicted") + ylab("observed")
+
+# Aspect ratios are commonly not fixed but adapted to figure size.
+#   With dynamic displays, the point of different perception
+#   might not be obvious depending on the figure/screen size.
+#   To make that point independent of figure height and width,
+#     the aspect ratio is fixed in this example.
+gg <- gg + coord_fixed(ratio=0.5)
+
+# Copy the figure and fix the aspect ratio to 2, i.e., 
+#   one pixel in x corresponds to 2 pixels in y.
+gg2 <- gg + coord_fixed(ratio=2)
+
+# Setting the aspect ratio to 1 (1 unit in x and y 
+#   corresponds to the same number of pixels) and 
+#   setting axis limits to be identical.
+gg3 <- gg + coord_fixed(ratio=1, xlim=r, ylim=r)
+
+# Cow (column-wise) plot, combine all figures into one.
+library(cowplot)
+plot_grid(gg, gg2, gg3, rel_widths = c(4, 2, 3), nrow = 1)
+```
+
+---
+
+## Eixos
+
+- O eixo deve começar em 0 (a menos que haja um bom motivo para escolher outros intervalos)
+
+- Se os dados não contiverem valores negativos, o eixo não deverá se estender para valores negativos
+
+- Se os dados exibidos forem comparáveis, os limites dos eixos deverão ser idênticos
+
+
+---
+
+# Exemplo
+
+
+Fonte: <https://royal-statistical-society.github.io/datavisguide/>
+
+```{r, echo=FALSE, message=FALSE, out.width="90%", cache=TRUE, fig.height=4, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+
+plot_data <- data.frame(
+  type = factor(
+    c("Our product", "Competitor"),
+    levels = c("Our product", "Competitor")
+  ),
+  value = c(220, 210)
+)
+
+# Original plot
+gg1 = ggplot(plot_data) +
+  geom_col(
+    mapping = aes(x = type, y = value),
+    fill = "lightblue",
+    colour = "black"
+  ) +
+  scale_y_continuous(breaks = seq(0, 220, by = 20), expand = c(0, 0)) +
+  labs(x = "", y = "") +
+  theme_minimal()
+
+# Offset the y axis
+offset <- 208
+gg2 = ggplot(plot_data) +
+  geom_col(
+    mapping = aes(x = type, y = value - offset),
+    fill = "lightblue",
+    colour = "black"
+  ) +
+  scale_y_continuous(
+    breaks = seq(0, 14, by = 2),
+    labels = seq(0 + offset, 14 + offset, by = 2),
+    expand = c(0, 0)
+  ) +
+  labs(x = "", y = "") +
+  theme_minimal()
+
+# Cow (column-wise) plot, combine all figures into one.
+library(cowplot)
+plot_grid(gg1, gg2, nrow = 1)
+
+```
 
 
 ---

@@ -16,7 +16,7 @@
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Clique para copiar","success":"Copiado!","error":"Press Ctrl+C to Copy"})</script>
     <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e4d02d65d8f64d94b61a64749a5305fa","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e7c1b0e52780418c85f69e1fed18c586","expires":14}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -69,8 +69,6 @@ class: title-slide, inverse, center, middle
 
 ## Apresentação
 
-- ...
-
 ---
 
 ## Questionário
@@ -79,17 +77,171 @@ class: title-slide, inverse, center, middle
 
 ---
 
+## Preparação
+
+- Dados utilisados: `english` (pacote `languageR`)
+
+
+```r
+data(english)
+english = english |&gt; 
+  select(RTlexdec, Familiarity, Word, AgeSubject)
+glimpse(english)
+#&gt; Rows: 4,568
+#&gt; Columns: 4
+#&gt; $ RTlexdec    &lt;dbl&gt; 6.543754, 6.397596, 6.304942, 6.424221, 6.450597, 6.531970…
+#&gt; $ Familiarity &lt;dbl&gt; 2.37, 4.43, 5.60, 3.87, 3.93, 3.27, 3.73, 5.67, 3.10, 4.43…
+#&gt; $ Word        &lt;fct&gt; doe, whore, stress, pork, plug, prop, dawn, dog, arc, skir…
+#&gt; $ AgeSubject  &lt;fct&gt; young, young, young, young, young, young, young, young, yo…
+```
+
+
+---
+
+
+
 ## Tipos de gráficos
+
+### y contínuo e x categórico
+
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-2-2.png" width="50%" /&gt;
+
+---
+
+## Tipos de gráficos
+
+### y contínuo e x categórico
+
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-3-2.png" width="50%" /&gt;
+
+---
+
+## Tipos de gráficos
+
+### y e x contínuos
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-4-2.png" width="50%" /&gt;
+
+---
+
+## Tipos de gráficos
+
+### y e x contínuos + z categórico
+
+.pull-left[
+  
+
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+- Terceira variável (idade) + cor em subtítulo
+
+- Duas linhas de tendência
+
+- Bom grau de informação e fácil leitura 😃
+
+- Eixos podem melhorar (qual a escala de `\(y\)`?)  🤨
+
+]
+
+
 
 
 ---
 
 ## Boas práticas
 
+### Alguns pontos a considerar
+
+.pull-left[
+
+
+- Gráfico apropriado aos dados
+
+- Quantidade apropriada de informação
+
+- Tamanho (e tipo) de fonte
+
+- Clareza de variáveis
+
+- Uso consistente de cores
+
+- Alinhamento entre figura e análise
+
+- Consistência ao longo do documento
+]
+
+.pull-right[
+
+- Definição apropriada (≥500 `dpi`) 🫠
+
+&lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
 
 ---
 
 ## Dos and don'ts
+
+- Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente
+
+- Dados no **eixo x** comparados: painéis empilhados
+
+- Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
+
+---
+
+## Exemplo
+
+Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;
+
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+---
+
+## Proporção de tela (*aspect ratio*)
+
+- Uma figura quadrada evita viés visual na escolha dos eixos y e x
+
+- Uma figura quadrada deve ser considerada se os dois eixos têm algo em comum:
+
+   + pré x pós
+
+   + dados observados x valores previstos pelo modelo
+
+   + mesmas unidades
+
+
+---
+
+## Exemplo
+
+
+Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;
+
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Eixos
+
+- O eixo deve começar em 0 (a menos que haja um bom motivo para escolher outros intervalos)
+
+- Se os dados não contiverem valores negativos, o eixo não deverá se estender para valores negativos
+
+- Se os dados exibidos forem comparáveis, os limites dos eixos deverão ser idênticos
+
+
+---
+
+# Exemplo
+
+
+Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;
+
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -109,7 +261,6 @@ class: title-slide, inverse, center, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "github",
 "ratio": "16:9",
 "center": true,
 "slideNumberFormat": "%current% de %total%",
