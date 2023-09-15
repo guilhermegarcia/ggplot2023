@@ -23,7 +23,6 @@ output:
 library(tidyverse)
 library(Hmisc)
 library(languageR)
-library(fontawesome)
 data(english)
 
 options(htmltools.dir.version = FALSE)
@@ -77,7 +76,7 @@ xaringanExtra::use_extra_styles(
 
 ## Preparação
 
-- Dados utilisados: `english` (pacote `languageR`)
+- Dados utilisados: <mark>`english`</mark> (pacote `languageR`)
 
 ```{r}
 data(english)
@@ -265,21 +264,40 @@ ggplot(data = english, aes(x = Familiarity, y = RTlexdec, color = AgeSubject)) +
 
 ---
 
-## Dos and don'ts
+## Exemplo não acadêmico: The Economist
 
-- Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente
+.pull-left[
 
-- Dados no **eixo x** comparados: painéis empilhados
+.center[<img src="econ1.png" width="75%"/>]
 
-- Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
+]
+
+.pull-right[
+
+.center[<img src="econ2.png" width="75%" />]
+
+]
+
 
 ---
 
-## Exemplo
+## Exemplo acadêmico: resumo para congresso
 
-Fonte: <https://royal-statistical-society.github.io/datavisguide/>
+.center[<img src="example.png" width="85%"/>]
 
-```{r, echo=FALSE, message=FALSE, out.width="90%", cache=TRUE, fig.height=4, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+---
+
+
+## Painéis (*facets*)
+
+- Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente<sup>`*`</sup>
+- Dados no **eixo x** comparados: painéis empilhados
+- Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
+
+<!-- ### Exemplo -->
+
+
+```{r, echo=FALSE, message=FALSE, out.width="72%", cache=TRUE, fig.height=4.3, fig.width = 9, message = FALSE, dpi=500, fig.align='center'}
 
 # Data set creation.
 set.seed(93384)
@@ -336,29 +354,22 @@ gg[["3x1"]] <- gg[["3x1"]] +
 library(cowplot)
 plot_grid(gg[[1]], gg[[2]], rel_widths = c(1.5, 2))
 ```
+
+
+.footnote[`*` Fonte: <https://royal-statistical-society.github.io/datavisguide/>]
+
 ---
 
 ## Proporção de tela (*aspect ratio*)
 
-- Uma figura quadrada evita viés visual na escolha dos eixos y e x
-
+- Uma figura quadrada evita viés visual na escolha dos eixos y e x<sup>`*`</sup>
 - Uma figura quadrada deve ser considerada se os dois eixos têm algo em comum:
-
-   + pré x pós
-
-   + dados observados x valores previstos pelo modelo
-
+   + pré *vs* pós
+   + dados observados *vs* valores previstos pelo modelo
    + mesmas unidades
 
 
----
-
-## Exemplo
-
-
-Fonte: <https://royal-statistical-society.github.io/datavisguide/>
-
-```{r, echo=FALSE, message=FALSE, out.width="90%", cache=TRUE, fig.height=4, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+```{r, echo=FALSE, message=FALSE, out.width="74%", cache=TRUE, fig.height=3.5, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
 
 # Observed vs predicted (any data with comparable x and y will do).
 
@@ -422,25 +433,19 @@ library(cowplot)
 plot_grid(gg, gg2, gg3, rel_widths = c(4, 2, 3), nrow = 1)
 ```
 
+.footnote[`*` Fonte: <https://royal-statistical-society.github.io/datavisguide/>]
+
 ---
 
 ## Eixos
 
-- O eixo deve começar em 0 (a menos que haja um bom motivo para escolher outros intervalos)
-
+- O eixo deve começar em 0 (a menos que haja um bom motivo para escolher outros intervalos)<sup>`*`</sup>
 - Se os dados não contiverem valores negativos, o eixo não deverá se estender para valores negativos
-
 - Se os dados exibidos forem comparáveis, os limites dos eixos deverão ser idênticos
 
+.footnote[`*` Fonte: <https://royal-statistical-society.github.io/datavisguide/>]
 
----
-
-# Exemplo
-
-
-Fonte: <https://royal-statistical-society.github.io/datavisguide/>
-
-```{r, echo=FALSE, message=FALSE, out.width="90%", cache=TRUE, fig.height=4, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+```{r, echo=FALSE, message=FALSE, out.width="78%", cache=TRUE, fig.height=3, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
 
 plot_data <- data.frame(
   type = factor(
@@ -485,15 +490,71 @@ plot_grid(gg1, gg2, nrow = 1)
 
 
 ---
+class: center, middle
 
 ## Introdução ao `ggplot2`
 
 
----
-
-## Visualização descritiva
+<iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/XIqCQx02E1U9W"></a></p>
 
 ---
 
-## Prática
+
+## Pacotes
+
+- Antes de irmos ao RStudio: estes são os pacotes que usaremos
+
+```{r, eval=FALSE}
+library(tidyverse) # ggplot2, tidyr, etc.
+library(Hmisc)     # para complementar estatística básica em ggplot2
+library(scales)    # para eixos mais flexíveis
+library(languageR) # dados
+```
+
+- Importante: há **outros** pacotes para visualização de dados. O `ggplot2` é apenas o mais completo
+
+- `plotly`, `lattice`, `base`, `leaflet`, `ggvis`, ...
+
+
+---
+
+## Noção de camadas
+
+- A ideia básica de um gráfico com `ggplot2` envolve <mark>**camadas**</mark>
+
+- Camadas são ordenadas linearmente: a camada $n$ será gerada *antes* de $n+1$
+
+- A primeira camada (base) define a origem dos dados, que será "herdada" por outras camadas
+
+```{r, eval = FALSE, message = FALSE}
+camada_base(dados, aes(x = ..., y = ..., color = ..., ...)) +
+ camada_1() + 
+ camada_2() +
+ ...+
+ camada_n()
+```
+
+- Apesar dessa "herança automática", camadas também podem ter certa independência
+
+- Isso nos permite utilizar mais de uma base de dados ao mesmo tempo 🤯
+
+---
+
+## Introdução ao `ggplot2`
+
+```{r, out.width="70%", echo=TRUE, cache=TRUE, fig.height=2.5, fig.width = 5, fig.align='center', message = FALSE, dpi=500}
+ggplot(data = english, aes(x = AgeSubject,      # Camada de base: dados
+                           y = RTlexdec)) + 
+  stat_summary(geom = "bar", width = 0.5) +     # Camada que determina tipo de gráfico
+  labs(x = "Idade", y = "Tempo de reação")      # Camada que nomeia os eixos
+
+```
+
+<!-- --- -->
+
+<!-- ## Visualização descritiva -->
+
+<!-- --- -->
+
+<!-- ## Prática -->
 

@@ -16,7 +16,7 @@
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Clique para copiar","success":"Copiado!","error":"Press Ctrl+C to Copy"})</script>
     <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e7c1b0e52780418c85f69e1fed18c586","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e243d073369142d99459d97d21177116","expires":14}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -79,7 +79,7 @@ class: title-slide, inverse, center, middle
 
 ## Preparação
 
-- Dados utilisados: `english` (pacote `languageR`)
+- Dados utilisados: &lt;mark&gt;`english`&lt;/mark&gt; (pacote `languageR`)
 
 
 ```r
@@ -184,78 +184,144 @@ glimpse(english)
 
 ---
 
-## Dos and don'ts
+## Exemplo não acadêmico: The Economist
 
-- Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente
+.pull-left[
 
-- Dados no **eixo x** comparados: painéis empilhados
+.center[&lt;img src="econ1.png" width="75%"/&gt;]
 
-- Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
+]
+
+.pull-right[
+
+.center[&lt;img src="econ2.png" width="75%" /&gt;]
+
+]
+
 
 ---
 
-## Exemplo
+## Exemplo acadêmico: resumo para congresso
 
-Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;
+.center[&lt;img src="example.png" width="85%"/&gt;]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+---
+
+
+## Painéis (*facets*)
+
+- Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente&lt;sup&gt;`*`&lt;/sup&gt;
+- Dados no **eixo x** comparados: painéis empilhados
+- Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
+
+&lt;!-- ### Exemplo --&gt;
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" width="72%" style="display: block; margin: auto;" /&gt;
+
+
+.footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
+
 ---
 
 ## Proporção de tela (*aspect ratio*)
 
-- Uma figura quadrada evita viés visual na escolha dos eixos y e x
-
+- Uma figura quadrada evita viés visual na escolha dos eixos y e x&lt;sup&gt;`*`&lt;/sup&gt;
 - Uma figura quadrada deve ser considerada se os dois eixos têm algo em comum:
-
-   + pré x pós
-
-   + dados observados x valores previstos pelo modelo
-
+   + pré *vs* pós
+   + dados observados *vs* valores previstos pelo modelo
    + mesmas unidades
 
 
----
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="74%" style="display: block; margin: auto;" /&gt;
 
-## Exemplo
-
-
-Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;
-
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+.footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
 
 ---
 
 ## Eixos
 
-- O eixo deve começar em 0 (a menos que haja um bom motivo para escolher outros intervalos)
-
+- O eixo deve começar em 0 (a menos que haja um bom motivo para escolher outros intervalos)&lt;sup&gt;`*`&lt;/sup&gt;
 - Se os dados não contiverem valores negativos, o eixo não deverá se estender para valores negativos
-
 - Se os dados exibidos forem comparáveis, os limites dos eixos deverão ser idênticos
+
+.footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
+
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center, middle
+
+## Introdução ao `ggplot2`
+
+
+&lt;iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen&gt;&lt;/iframe&gt;&lt;p&gt;&lt;a href="https://giphy.com/gifs/XIqCQx02E1U9W"&gt;&lt;/a&gt;&lt;/p&gt;
+
+---
+
+
+## Pacotes
+
+- Antes de irmos ao RStudio: estes são os pacotes que usaremos
+
+
+```r
+library(tidyverse) # ggplot2, tidyr, etc.
+library(Hmisc)     # para complementar estatística básica em ggplot2
+library(scales)    # para eixos mais flexíveis
+library(languageR) # dados
+```
+
+- Importante: há **outros** pacotes para visualização de dados. O `ggplot2` é apenas o mais completo
+
+- `plotly`, `lattice`, `base`, `leaflet`, `ggvis`, ...
 
 
 ---
 
-# Exemplo
+## Noção de camadas
+
+- A ideia básica de um gráfico com `ggplot2` envolve &lt;mark&gt;**camadas**&lt;/mark&gt;
+
+- Camadas são ordenadas linearmente: a camada `\(n\)` será gerada *antes* de `\(n+1\)`
+
+- A primeira camada (base) define a origem dos dados, que será "herdada" por outras camadas
 
 
-Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;
+```r
+camada_base(dados, aes(x = ..., y = ..., color = ..., ...)) +
+ camada_1() + 
+ camada_2() +
+ ...+
+ camada_n()
+```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+- Apesar dessa "herança automática", camadas também podem ter certa independência
 
+- Isso nos permite utilizar mais de uma base de dados ao mesmo tempo 🤯
 
 ---
 
 ## Introdução ao `ggplot2`
 
 
----
+```r
+ggplot(data = english, aes(x = AgeSubject,      # Camada de base: dados
+                           y = RTlexdec)) + 
+  stat_summary(geom = "bar", width = 0.5) +     # Camada que determina tipo de gráfico
+  labs(x = "Idade", y = "Tempo de reação")      # Camada que nomeia os eixos
+```
 
-## Visualização descritiva
+&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
----
+&lt;!-- --- --&gt;
 
-## Prática
+&lt;!-- ## Visualização descritiva --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Prática --&gt;
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
