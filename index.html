@@ -16,7 +16,7 @@
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Clique para copiar","success":"Copiado!","error":"Press Ctrl+C to Copy"})</script>
     <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e243d073369142d99459d97d21177116","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xc8cffe919f24ea285544cdc3cca8317","expires":14}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -55,7 +55,7 @@ class: title-slide, inverse, center, middle
 }
 .xe__progress-bar {
   height: 0.25em;
-  background-color: darkred;
+  background-color: darkorange2;
   width: calc(var(--slide-current) / var(--slide-total) * 100%);
 }
 .remark-visible .xe__progress-bar {
@@ -73,9 +73,123 @@ class: title-slide, inverse, center, middle
 
 ## Questionário
 
-- MS Forms
+- Para começar, um quiz 
+- Visite &lt;https://forms.office.com/r/eg7M9cnzd8&gt; ou use seu celular no QR abaixo
+
+&lt;br&gt;
+
+
+.center[&lt;img src="qr.png" width="35%"/&gt;]
+
 
 ---
+
+class: inverse, center, middle
+
+## Eficiência em gráficos
+
+---
+
+## Visualização de dados 😞
+
+
+
+- Uma figura pouco eficiente : somente uma variável é mostrada (`Feedback`)
+- Somente médias estão presentes; não temos ideia da incerteza dessas médias (e.g., erro padrão)
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Visualização de dados 😕
+
+- Melhor, mas `Feedback` está completamente diferente agora
+- Aqui, vemos o erro padrão também: demonstração [**aqui**](https://guilherme.shinyapps.io/stats101)
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Visualização de dados 🥰
+
+- Melhor ainda: gráficos de caixa nos dão muito mais informação sobre a dispersão dos dados
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+# Visualização de dados 😍
+
+- Agora também temos informação sobre a variável `Task` (aparentemente nenhuma interação com `Feedback`)
+- A figura nos permite comparar efeitos de duas variáveis sobre `Score`
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Visualização de dados 🤯
+
+- Agora adicionamos `L1` (means): sem efeito claro (texto esconde médias e erro padrão)
+- Total de variáveis: `Score ~ Feedback + Task + L1` (todos os preditores são *categóricos* aqui)
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Visualização de dados 🤒
+
+- Aqui vemos pontos individuais (muita informação)
+- Variáveis: `Score ~ Feedback + Task + L1 + ID`
+
+.pull-left[
+&lt;img src="index_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+class: inverse, center, middle
+
+## Tipos de gráficos
+
+---
+
+
 
 ## Preparação
 
@@ -98,40 +212,30 @@ glimpse(english)
 
 ---
 
-
-
-## Tipos de gráficos
-
 ### y contínuo e x categórico
 
-&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-2-2.png" width="50%" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-15-2.png" width="50%" /&gt;
 
 ---
 
-## Tipos de gráficos
-
 ### y contínuo e x categórico
 
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-3-2.png" width="50%" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-16-2.png" width="50%" /&gt;
 
 ---
-
-## Tipos de gráficos
 
 ### y e x contínuos
 
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-4-2.png" width="50%" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-17-2.png" width="50%" /&gt;
 
 ---
-
-## Tipos de gráficos
 
 ### y e x contínuos + z categórico
 
 .pull-left[
   
 
-&lt;img src="index_files/figure-html/unnamed-chunk-5-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -177,7 +281,7 @@ glimpse(english)
 
 - Definição apropriada (≥500 `dpi`) 🫠
 
-&lt;img src="index_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -201,9 +305,13 @@ glimpse(english)
 
 ---
 
-## Exemplo acadêmico: resumo para congresso
+## Exemplo acadêmico: resultado de modelo estatístico
 
-.center[&lt;img src="example.png" width="85%"/&gt;]
+- Combinação de efeito, intervalo, porcentagem de efeito na ROPE, e efeito misto ([Garcia &amp; Guzzo 2022](https://jpl.letras.ulisboa.pt/article/id/8188/))
+
+&lt;br&gt;
+
+.center[&lt;img src="fit1.png" width="65%"/&gt;]
 
 ---
 
@@ -217,7 +325,7 @@ glimpse(english)
 &lt;!-- ### Exemplo --&gt;
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-7-1.png" width="72%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" width="72%" style="display: block; margin: auto;" /&gt;
 
 
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
@@ -233,7 +341,7 @@ glimpse(english)
    + mesmas unidades
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.png" width="74%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" width="74%" style="display: block; margin: auto;" /&gt;
 
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
 
@@ -247,11 +355,11 @@ glimpse(english)
 
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.png" width="78%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" width="78%" style="display: block; margin: auto;" /&gt;
 
 
 ---
-class: center, middle
+class: inverse, center, middle
 
 ## Introdução ao `ggplot2`
 
@@ -313,7 +421,7 @@ ggplot(data = english, aes(x = AgeSubject,      # Camada de base: dados
   labs(x = "Idade", y = "Tempo de reação")      # Camada que nomeia os eixos
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 &lt;!-- --- --&gt;
 

@@ -22,6 +22,7 @@ output:
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(Hmisc)
+library(kableExtra)
 library(languageR)
 data(english)
 
@@ -53,7 +54,7 @@ class: title-slide, inverse, center, middle
 xaringanExtra::use_scribble()
 xaringanExtra::use_clipboard(button_text = "Clique para copiar", success_text = "Copiado!")
 # xaringanExtra::use_search(show_icon = TRUE)
-xaringanExtra::use_progress_bar(location = "bottom", color = "darkred")
+xaringanExtra::use_progress_bar(location = "bottom", color = "darkorange2")
 options(htmltools.dir.version = FALSE)
 xaringanExtra::use_editable()
 xaringanExtra::use_panelset()
@@ -70,9 +71,309 @@ xaringanExtra::use_extra_styles(
 
 ## Questionário
 
-- MS Forms
+- Para começar, um quiz 
+- Visite <https://forms.office.com/r/eg7M9cnzd8> ou use seu celular no QR abaixo
+
+<br>
+
+
+.center[<img src="qr.png" width="35%"/>]
+
 
 ---
+
+class: inverse, center, middle
+
+## Eficiência em gráficos
+
+---
+
+## Visualização de dados 😞
+
+```{r, message=FALSE, echo=FALSE}
+d = read_csv("feedbackData.csv")
+
+dLong = d %>% 
+  pivot_longer(names_to = "Task", #<<
+               values_to = "Score", #<<
+               cols = task_A1:task_B5) %>% #<<
+  mutate(Task = str_sub(Task, start = -2L, end = -1L ),
+         Item = str_sub(Task, start = -1L, end = -1L),
+         Task = str_sub(Task, start = -2L, end = -2L)) %>% 
+  select(ID:Task, Item, Score)
+```
+
+- Uma figura pouco eficiente : somente uma variável é mostrada (`Feedback`)
+- Somente médias estão presentes; não temos ideia da incerteza dessas médias (e.g., erro padrão)
+
+.pull-left[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
+  stat_summary(fun = mean, geom = "bar", 
+               alpha = 0.5, color = "black",
+               width = 0.5) +
+  theme_classic() +
+  theme(text = element_text(size = 18))
+```
+]
+
+.pull-right[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = tibble(x = c(-2.5, 2.5)),
+       aes(x = x)) + 
+  stat_function(fun = dnorm) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.7, 0.7),
+                geom = "area",
+                alpha = 0.3) +
+  stat_function(fun = dnorm,
+                xlim = c(-2, -2),
+                geom = "point",
+                alpha = 1, size = 8,
+                color = "darkorange2") +
+  theme_classic() + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 18)) +
+  labs(y = "Figure efficiency",
+       x = "Amount of information in figure")
+```
+]
+
+---
+
+# Visualização de dados 😕
+
+- Melhor, mas `Feedback` está completamente diferente agora
+- Aqui, vemos o erro padrão também: demonstração [**aqui**](https://guilherme.shinyapps.io/stats101)
+
+.pull-left[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
+  stat_summary() +
+  theme_classic() +
+  theme(text = element_text(size = 18))
+```
+]
+
+.pull-right[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = tibble(x = c(-2.5, 2.5)),
+       aes(x = x)) + 
+  stat_function(fun = dnorm) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.7, 0.7),
+                geom = "area",
+                alpha = 0.3) +
+  stat_function(fun = dnorm,
+                xlim = c(-1.5, -1.5),
+                geom = "point",
+                alpha = 1, size = 8,
+                color = "darkorange2") +
+  theme_classic() + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 18)) +
+  labs(y = "Figure efficiency",
+       x = "Amount of information in figure")
+```
+]
+
+---
+
+# Visualização de dados 🥰
+
+- Melhor ainda: gráficos de caixa nos dão muito mais informação sobre a dispersão dos dados
+
+.pull-left[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
+  geom_boxplot() +
+  stat_summary() +
+  theme_classic() +
+  theme(text = element_text(size = 18))
+```
+]
+
+.pull-right[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = tibble(x = c(-2.5, 2.5)),
+       aes(x = x)) + 
+  stat_function(fun = dnorm) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.7, 0.7),
+                geom = "area",
+                alpha = 0.3) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.75, -0.75),
+                geom = "point",
+                alpha = 1, size = 8,
+                color = "darkorange2") +
+  theme_classic() + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 18)) +
+  labs(y = "Figure efficiency",
+       x = "Amount of information in figure")
+```
+]
+
+
+---
+
+# Visualização de dados 😍
+
+- Agora também temos informação sobre a variável `Task` (aparentemente nenhuma interação com `Feedback`)
+- A figura nos permite comparar efeitos de duas variáveis sobre `Score`
+
+.pull-left[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
+  geom_boxplot(aes(fill = Task)) +
+  stat_summary(aes(group = Task), 
+               position = position_dodge(width = 0.75),
+               color = "black") +
+  theme_classic() +
+  theme(legend.position = "top") +
+  scale_fill_manual(values = c("white", "gray")) +
+  theme(text = element_text(size = 18))
+```
+]
+
+.pull-right[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = tibble(x = c(-2.5, 2.5)),
+       aes(x = x)) + 
+  stat_function(fun = dnorm) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.7, 0.7),
+                geom = "area",
+                alpha = 0.3) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.25, -0.25),
+                geom = "point",
+                alpha = 1, size = 8,
+                color = "darkorange2") +
+  theme_classic() + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 18)) +
+  labs(y = "Figure efficiency",
+       x = "Amount of information in figure")
+```
+]
+
+---
+
+# Visualização de dados 🤯
+
+- Agora adicionamos `L1` (means): sem efeito claro (texto esconde médias e erro padrão)
+- Total de variáveis: `Score ~ Feedback + Task + L1` (todos os preditores são *categóricos* aqui)
+
+.pull-left[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F, warning=FALSE}
+ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
+  geom_boxplot(aes(fill = Task)) +
+  stat_summary(aes(group = Task), 
+               position = position_dodge(width = 0.75),
+               color = "black") +
+  geom_text(d = dLong %>% 
+              group_by(Feedback, Task, L1) %>% 
+              dplyr::summarize(Score = mean(Score)),
+            position = position_dodge(width = 0.75),
+            aes(group = Task, label = L1), color = "darkviolet") +
+  theme_classic() +
+  theme(legend.position = "top") +
+  scale_fill_manual(values = c("white", "gray")) +
+  theme(text = element_text(size = 18))
+```
+]
+
+.pull-right[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = tibble(x = c(-2.5, 2.5)),
+       aes(x = x)) + 
+  stat_function(fun = dnorm) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.7, 0.7),
+                geom = "area",
+                alpha = 0.3) +
+  stat_function(fun = dnorm,
+                xlim = c(0.45, 0.45),
+                geom = "point",
+                alpha = 1, size = 8,
+                color = "darkorange2") +
+  theme_classic() + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 18)) +
+  labs(y = "Figure efficiency",
+       x = "Amount of information in figure")
+```
+]
+
+---
+
+# Visualização de dados 🤒
+
+- Aqui vemos pontos individuais (muita informação)
+- Variáveis: `Score ~ Feedback + Task + L1 + ID`
+
+.pull-left[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
+  geom_boxplot() +
+  stat_summary(aes(group = Task), 
+               position = position_dodge(width = 0.75),
+               color = "black") +
+  geom_text(d = dLong %>% 
+              group_by(Feedback, Task, L1) %>% 
+              dplyr::summarize(Score = mean(Score)),
+            position = position_dodge(width = 0.75),
+            aes(group = Task, label = L1), color = "darkviolet") +
+  # stat_summary(aes(group = Item), geom = "line") +
+  geom_jitter(alpha = 0.2, aes(group = ID)) +
+  theme_classic() +
+  facet_grid(~Task, labeller = "label_both") +
+  theme(legend.position = "top") +
+  scale_fill_manual(values = c("white", "gray")) +
+  theme(text = element_text(size = 18))
+```
+]
+
+.pull-right[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = tibble(x = c(-2.5, 2.5)),
+       aes(x = x)) + 
+  stat_function(fun = dnorm) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.7, 0.7),
+                geom = "area",
+                alpha = 0.3) +
+  stat_function(fun = dnorm,
+                xlim = c(1.2, 1.2),
+                geom = "point",
+                alpha = 1, size = 8,
+                color = "darkorange2") +
+  theme_classic() + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 18)) +
+  labs(y = "Figure efficiency",
+       x = "Amount of information in figure")
+```
+]
+
+
+---
+
+class: inverse, center, middle
+
+## Tipos de gráficos
+
+---
+
+
 
 ## Preparação
 
@@ -87,10 +388,6 @@ glimpse(english)
 
 
 ---
-
-
-
-## Tipos de gráficos
 
 ### y contínuo e x categórico
 
@@ -118,8 +415,6 @@ ggplot(data =english, aes(x = AgeSubject, y = RTlexdec)) +
 
 ---
 
-## Tipos de gráficos
-
 ### y contínuo e x categórico
 
 ```{r, out.width="50%", echo=FALSE, cache=TRUE, fig.height=4, fig.width = 5, message = FALSE, dpi=500}
@@ -139,8 +434,6 @@ ggplot(data =english, aes(x = AgeSubject, y = RTlexdec)) +
 ```
 
 ---
-
-## Tipos de gráficos
 
 ### y e x contínuos
 
@@ -163,8 +456,6 @@ ggplot(data =english, aes(x = Familiarity, y = RTlexdec)) +
 ```
 
 ---
-
-## Tipos de gráficos
 
 ### y e x contínuos + z categórico
 
@@ -281,9 +572,13 @@ ggplot(data = english, aes(x = Familiarity, y = RTlexdec, color = AgeSubject)) +
 
 ---
 
-## Exemplo acadêmico: resumo para congresso
+## Exemplo acadêmico: resultado de modelo estatístico
 
-.center[<img src="example.png" width="85%"/>]
+- Combinação de efeito, intervalo, porcentagem de efeito na ROPE, e efeito misto ([Garcia & Guzzo 2022](https://jpl.letras.ulisboa.pt/article/id/8188/))
+
+<br>
+
+.center[<img src="fit1.png" width="65%"/>]
 
 ---
 
@@ -490,7 +785,7 @@ plot_grid(gg1, gg2, nrow = 1)
 
 
 ---
-class: center, middle
+class: inverse, center, middle
 
 ## Introdução ao `ggplot2`
 
