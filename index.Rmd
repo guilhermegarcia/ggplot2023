@@ -790,7 +790,9 @@ class: inverse, center, middle
 ## Introdução ao `ggplot2`
 
 
-<iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/XIqCQx02E1U9W"></a></p>
+<!-- <iframe src="https://giphy.com/embed/XIqCQx02E1U9W" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/XIqCQx02E1U9W"></a></p> -->
+
+.center[<img src="kermit.gif" width="35%"/>]
 
 ---
 
