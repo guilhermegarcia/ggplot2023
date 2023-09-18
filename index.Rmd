@@ -848,9 +848,9 @@ ggplot(data = english, aes(x = AgeSubject,      # Camada de base: dados
 ```
 
 
----
 
-Dia 2 [aqui](test.html)
+
+<!-- Dia 2 [aqui](test.html) -->
 
 <!-- --- -->
 
