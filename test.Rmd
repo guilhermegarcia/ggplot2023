@@ -1,0 +1,142 @@
+---
+title: "Visualização de dados em ggplot"
+subtitle: ""
+author: "Guilherme D. Garcia e Ronaldo Lima Jr."
+institute: "• Université Laval e UnB•"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "myStyles.css"]
+    lib_dir: libs
+    includes:
+      after_body: "myStyles.css"
+    nature:
+      ratio: '16:9'
+      center: true
+      slideNumberFormat: "%current% de %total%"
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(Hmisc)
+library(kableExtra)
+library(languageR)
+data(english)
+
+options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+```
+
+class: title-slide, inverse, center, middle
+
+# Workshop, dia 2
+## Visualização de dados com ggplot
+<a href = "https://gdgarcia.ca" style="color: #FEC20B">Guilherme D. Garcia</a> | Université Laval • Centre for Research on Brain, Language & Music (CRBLM) 
+
+<a href = "http://ronaldolimajr.github.io" style="color: #FEC20B">Ronaldo Lima Jr.</a> | Universidade de Brasília • CNPq
+
+
+<!-- #### Université Laval • Centre for Research on Brain, Language & Music (CRBLM) -->
+<!-- #### Universidade de Brasília • CNPq -->
+
+---
+
+```{r xaringanExtra, echo=FALSE}
+# xaringanExtra::use_tile_view()
+xaringanExtra::use_scribble()
+xaringanExtra::use_clipboard(button_text = "Clique para copiar", success_text = "Copiado!")
+# xaringanExtra::use_search(show_icon = TRUE)
+xaringanExtra::use_progress_bar(location = "bottom", color = "darkorange2")
+options(htmltools.dir.version = FALSE)
+xaringanExtra::use_editable()
+xaringanExtra::use_panelset()
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = FALSE  #<<
+)
+
+```
+
+## Apresentação
+
+---
+
+## Questionário
+
+- Para começar, um quiz 
+- Visite <https://forms.office.com/r/eg7M9cnzd8> ou use seu celular no QR abaixo
+
+<br>
+
+
+.center[<img src="qr.png" width="35%"/>]
+
+
+---
+
+class: inverse, center, middle
+
+## Eficiência em gráficos
+
+---
+
+## Visualização de dados 😞
+
+```{r, message=FALSE, echo=FALSE}
+d = read_csv("feedbackData.csv")
+
+dLong = d %>% 
+  pivot_longer(names_to = "Task", #<<
+               values_to = "Score", #<<
+               cols = task_A1:task_B5) %>% #<<
+  mutate(Task = str_sub(Task, start = -2L, end = -1L ),
+         Item = str_sub(Task, start = -1L, end = -1L),
+         Task = str_sub(Task, start = -2L, end = -2L)) %>% 
+  select(ID:Task, Item, Score)
+```
+
+- Uma figura pouco eficiente : somente uma variável é mostrada (`Feedback`)
+- Somente médias estão presentes; não temos ideia da incerteza dessas médias (e.g., erro padrão)
+
+.pull-left[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
+  stat_summary(fun = mean, geom = "bar", 
+               alpha = 0.5, color = "black",
+               width = 0.5) +
+  theme_classic() +
+  theme(text = element_text(size = 18))
+```
+]
+
+.pull-right[
+```{r, fig.height=5, dev='svg', fig.align='center', echo=F, message = F}
+ggplot(data = tibble(x = c(-2.5, 2.5)),
+       aes(x = x)) + 
+  stat_function(fun = dnorm) +
+  stat_function(fun = dnorm,
+                xlim = c(-0.7, 0.7),
+                geom = "area",
+                alpha = 0.3) +
+  stat_function(fun = dnorm,
+                xlim = c(-2, -2),
+                geom = "point",
+                alpha = 1, size = 8,
+                color = "darkorange2") +
+  theme_classic() + 
+  theme(axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 18)) +
+  labs(y = "Figure efficiency",
+       x = "Amount of information in figure")
+```
+]
+
