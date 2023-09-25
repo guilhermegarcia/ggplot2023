@@ -1090,9 +1090,9 @@ plot_grid(gg, gg2, gg3, nrow = 1)
 
 - Com dados comparados a um valor de referência, pode ser necessário transformar a escala em logarítmica, para que os valores acima e abaixo do valor de referência fiquem simétricos.
 
-. . . 
+--
 
-- Exemplo: nos gráficos a seguir (esq. linear, dir. log) metade dos dados estão acima e metade abaixo do valor de referência
+- Exemplo: nos gráficos a seguir (esq. linear, dir. log) metade dos dados está acima e metade abaixo do valor de referência
 
 ---
 
@@ -1190,7 +1190,7 @@ plot_grid(gg1, gg2)
   + dados descritivos
   + valores previstos pelo modelo (idealmente, com dados sobrepostos)
   
-. . . 
+--
 
 $\rightarrow$ Segundo dia do curso!
 
@@ -1245,6 +1245,8 @@ camada_base(dados, aes(x = ..., y = ..., color = ..., ...)) +
  ...+
  camada_n()
 ```
+
+--
 
 - Apesar dessa "herança automática", camadas também podem ter certa independência
 
