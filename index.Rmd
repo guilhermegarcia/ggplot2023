@@ -220,7 +220,7 @@ ggplot(data = dLong, aes(x = Feedback, y = Score)) +
                alpha = 0.5, color = "black",
                width = 0.5) +
   theme_classic() +
-  theme(text = element_text(size = 18))
+  theme(text = element_text(size = 20))
 ```
 ]
 
@@ -241,7 +241,7 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme_classic() + 
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
-        text = element_text(size = 18)) +
+        text = element_text(size = 20)) +
   labs(y = "Eficiência",
        x = "Quantidade de informação")
 ```
@@ -259,7 +259,7 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
 ggplot(data = dLong, aes(x = Feedback, y = Score)) + 
   stat_summary() +
   theme_classic() +
-  theme(text = element_text(size = 18))
+  theme(text = element_text(size = 20))
 ```
 ]
 
@@ -280,7 +280,7 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme_classic() + 
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
-        text = element_text(size = 18)) +
+        text = element_text(size = 20)) +
   labs(y = "Eficiência",
        x = "Quantidade de informação")
 ```
@@ -298,7 +298,7 @@ ggplot(data = dLong, aes(x = Feedback, y = Score)) +
   geom_boxplot() +
   stat_summary() +
   theme_classic() +
-  theme(text = element_text(size = 18))
+  theme(text = element_text(size = 20))
 ```
 ]
 
@@ -319,7 +319,7 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme_classic() + 
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
-        text = element_text(size = 18)) +
+        text = element_text(size = 20)) +
   labs(y = "Eficiência",
        x = "Quantidade de informação")
 ```
@@ -343,7 +343,7 @@ ggplot(data = dLong, aes(x = Feedback, y = Score)) +
   theme_classic() +
   theme(legend.position = "top") +
   scale_fill_manual(values = c("white", "gray")) +
-  theme(text = element_text(size = 18))
+  theme(text = element_text(size = 20))
 ```
 ]
 
@@ -364,7 +364,7 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme_classic() + 
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
-        text = element_text(size = 18)) +
+        text = element_text(size = 20)) +
   labs(y = "Eficiência",
        x = "Quantidade de informação")
 ```
@@ -392,7 +392,7 @@ ggplot(data = dLong, aes(x = Feedback, y = Score)) +
   theme_classic() +
   theme(legend.position = "top") +
   scale_fill_manual(values = c("white", "gray")) +
-  theme(text = element_text(size = 18))
+  theme(text = element_text(size = 20))
 ```
 ]
 
@@ -413,7 +413,7 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme_classic() + 
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
-        text = element_text(size = 18)) +
+        text = element_text(size = 20)) +
   labs(y = "Eficiência",
        x = "Quantidade de informação")
 ```
@@ -444,7 +444,7 @@ ggplot(data = dLong, aes(x = Feedback, y = Score)) +
   facet_grid(~Task, labeller = "label_both") +
   theme(legend.position = "top") +
   scale_fill_manual(values = c("white", "gray")) +
-  theme(text = element_text(size = 18))
+  theme(text = element_text(size = 20))
 ```
 ]
 
@@ -465,11 +465,23 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme_classic() + 
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
-        text = element_text(size = 18)) +
+        text = element_text(size = 20)) +
   labs(y = "Eficiência",
        x = "Quantidade de informação")
 ```
 ]
+
+
+---
+
+# Visualização em contexto
+
+- Consideração importante: <p style="color: red; display: inline;">**onde**</p> estará a figura?
+  - Slides?
+  - Pôster?
+  - Artigo?
+  - Site?
+- Tudo isso afeta o <p style="color: red; display: inline;">**conteúdo**</p> e a <p style="color: red; display: inline;">**estética**</p> de um gráfico
 
 
 ---
@@ -693,13 +705,13 @@ ggplot(data = english, aes(x = Familiarity, y = RTlexdec, color = AgeSubject)) +
 ## Painéis (*facets*)
 
 - Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente<sup>`*`</sup>
-- Dados no **eixo x** comparados: painéis empilhados
+- Dados no **eixo x** comparados: painéis empilhados (*nomes de painéis podem ser longos demais*)
 - Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
 
 <!-- ### Exemplo -->
 
 
-```{r, echo=FALSE, message=FALSE, out.width="72%", cache=TRUE, fig.height=4.3, fig.width = 9, message = FALSE, dpi=500, fig.align='center'}
+```{r, echo=FALSE, message=FALSE, out.width="85%", cache=TRUE, fig.height=3.5, fig.width = 9, message = FALSE, dpi=500, fig.align='center'}
 
 # Data set creation.
 set.seed(93384)
@@ -889,6 +901,302 @@ library(cowplot)
 plot_grid(gg1, gg2, nrow = 1)
 
 ```
+
+
+---
+
+## Legendas
+
+- As legendas não devem atrair muita atenção
+- Devem ser colocadas nas margens da figura
+- Se a legenda se referir a objetos únicos (por exemplo, uma linha por grupo), colocar a legenda ao lado do objeto correspondente facilita a leitura
+- *Colocar cores das legendas no título do gráfico (dia 2)*
+
+---
+
+### Exemplo
+
+```{r, echo=FALSE, message=FALSE, out.width="78%", cache=TRUE, fig.height=3, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+#| echo: false
+
+# ---
+# EU stock markets, year and indices DAX, SMI, CAC, and FTSE.
+
+# Store graphics into a list.
+gg.list <- list()
+
+# Prepare the data set (reformat EuStockMarkets that comes with R).
+x <- EuStockMarkets
+df <- data.frame(
+  time = as.vector(time(x)),
+  index = rep(colnames(x), rep(nrow(x), ncol(x))),
+  value = as.vector(x),
+  stringsAsFactors = TRUE
+)
+df$index2 <- df$index # For use with labels later.
+
+library(ggplot2)
+
+# Standard layout and legend.
+gg <- ggplot(df, aes(x = time, y = value, group = index, color = index, label = index2))
+gg <- gg + geom_line() + theme_bw()
+
+# Nicer axis tick mark settings.
+ax <- pretty(df$time, n = 10)
+gg <- gg + scale_x_continuous(limits = range(ax), breaks = ax)
+gg <- gg + xlab("year") + ylab("Stock index")
+
+gg.list[[1]] <- gg
+
+# Use the last element of each time series for x,y of the label.
+# Use that the last element is the first element of the reversed order,
+#   and extract the first element per index by using !duplicated.
+y <- df[rev(order(df$time)), ] # descending in time.
+y <- y[!duplicated(y$index), ] # first entry per index
+y$index2 <- y$index # Create a copy that contains formatted strings.
+levels(y$index2)[levels(y$index2) == "FTSE"] <- "\n\nFTSE"
+# Add a newline to separate FTSE from DAX.
+# Note that the factor level is modified, not the data.
+
+# Drop the legend, move labels into figure.
+gg <- gg + geom_text(data = y, hjust = "left", nudge_x = 0.1)
+# aes as before, nudge adds space on the lhs.
+gg <- gg + theme(legend.position = "none")
+gg.list[[2]] <- gg
+
+# ---
+# Both figures into a single output figure.
+
+library(cowplot)
+plot_grid(gg.list[[1]], gg.list[[2]], rel_widths = c(2.25, 2))
+```
+
+---
+
+## Orientação
+
+- Geralmente: variável preditora no eixo y e variável resposta no x
+- **Tempo** também no eixo x (passado $\rightarrow$ futuro, esquerda $\rightarrow$ direita)
+- No entanto: se há uma ordem nos dados a serem comparados, barras/caixas horizontais são mais intuitivas
+
+---
+
+### Exemplo
+
+- Importante considerar questões estéticas: legendas com muito texto *vs.* dimensões da apresentação
+- Outras questões: número de níveis de um fator, ângulo do texto, contexto da apresentação
+
+```{r, echo=FALSE, message=FALSE, out.width="100%", cache=TRUE, fig.height=3, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+#| echo: false
+
+# Store figures into a list.
+gg.list <- list()
+
+library(ggplot2)
+
+x <- mpg # miles per gallon data set.
+x$car <- paste(x$manufacturer, x$model)
+
+gg <- ggplot(x, aes(x = car, y = hwy, group = car))
+gg <- gg + geom_boxplot() + theme_bw() + xlab("Miles per gallon (highway)")
+gg.list[["vertical orientation"]] <- gg
+
+gg.list[["horizontal orientation"]] <- gg + coord_flip()
+
+# ---
+# Both figures into a single output figure.
+
+library(cowplot)
+plot_grid(gg.list[[1]], gg.list[[2]], rel_widths = c(2, 2.5))
+```
+
+---
+
+## Elementos extras
+
+- Informações redundantes devem ser retiradas (ex: repetir o eixo em painéis)
+- Elemetnos extras devem ser adicionados apenas se ajudam na leitura/interpretação
+  + ex: linha horizontal/vertical/diagonal no zero (ponto sem mudança)
+  
+---
+
+### Exemplo
+
+```{r, echo=FALSE, message=FALSE, out.width="100%", cache=TRUE, fig.height=3, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+
+# Function for data set generation.
+make.data <- function(
+    x = c(0, 0.5, 1, 2, 4, 8, 12, 16, 24),
+    y = exp(-0.2 * x) - exp(-0.21 * x),
+    sd = 0.25, # std dev of y
+    seed = 4384590,
+    n = 50) {
+  # Setting the random number seed for reproducibility.
+  set.seed(seed)
+  # Creation of x- and y-variables.
+  x2 <- rep(x, n)
+  y2 <- NULL
+  for (i in 1:n) {
+    y2 <- c(y2, y * (2 * (n / 4 - i)) + rlnorm(length(y), sd = sd))
+  }
+
+  # Creation of an identifier for each profile.
+  ID <- factor(rep(1:n, rep(length(y), n)))
+
+  # Composition of the data set.
+  df <- data.frame(PD = 100 * y2, time = x, ID = ID)
+
+  # Addition of a baseline variable.
+  BL <- df[df$time == 0, c("ID", "PD")]
+  names(BL) <- c("ID", "BL")
+  df <- merge(df, BL)
+
+  # Addition of change from baseline.
+  df$Change <- df$PD - df$BL
+
+  # Definition of treatment.
+  df$trt <- ifelse(df$BL > mean(df$BL), "active", " placebo")
+
+  return(df)
+}
+
+# Generate the data.
+x <- make.data()
+
+# ---
+# Figures.
+
+library(ggplot2)
+gg <- ggplot(x, aes(x = time, y = Change, group = ID, color = ID))
+gg <- gg + theme_bw()
+gg <- gg + xlab("Time [h]") + ylab("Change from baseline")
+gg <- gg + geom_line(linewidth = 1.1) + theme(legend.position = "none")
+gg <- gg + facet_grid(. ~ trt)
+
+# Addition of an auxiliary line at y=0.
+gg2 <- gg + geom_hline(yintercept = 0, linewidth = 1.2)
+
+# Symmetric y-axis limits.
+gg3 <- gg2 + ylim(c(-1, 1) * max(abs(x$Change)))
+
+# Arranging all plots into one figure.
+library(cowplot)
+plot_grid(gg, gg2, gg3, nrow = 1)
+```
+
+---
+
+## Eixos lineares e logarítmicos
+
+- Com dados comparados a um valor de referência, pode ser necessário transformar a escala em logarítmica, para que os valores acima e abaixo do valor de referência fiquem simétricos.
+
+. . . 
+
+- Exemplo: nos gráficos a seguir (esq. linear, dir. log) metade dos dados estão acima e metade abaixo do valor de referência
+
+---
+
+### Exemplo
+
+
+```{r, echo=FALSE, message=FALSE, out.width="78%", cache=TRUE, fig.height=3, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+
+# Naïve plot of y vs x. If there is no change (on average),
+# half the data are below the line of no change.
+# Asymmetric view, and it depends on y/x or x/y.
+
+set.seed(33838)
+x <- data.frame(
+  x = rlnorm(200, 2, 0.2),
+  y = rlnorm(200, 0.2, 0.75)
+)
+# Add an outlier manually.
+x <- rbind(x, data.frame(x = quantile(x$x, 0.8), y = max(x$y) * 1.5))
+
+# ---
+# Plotting.
+
+library(ggplot2)
+# Scatterplot of y vs x.
+gg <- ggplot(x, aes(x = x, y = y)) +
+  geom_point() +
+  theme_bw()
+gg <- gg + geom_hline(yintercept = 1, color = "firebrick", linewidth = 2)
+gg <- gg + xlab("x-variable") + ylab("Fold-change")
+gg1 = gg
+
+# Logarithmic axes, symmetric range (!):
+xbr <- c(1 / 10, 1 / 5, 1 / 2, 1, 2, 5, 10)
+gg <- gg + scale_y_continuous(
+  breaks = xbr, trans = "log10",
+  limits = max(abs(x$y))^c(-1, 1)
+)
+gg2 = gg
+
+# ---
+# Both figures into a single output figure.
+library(cowplot)
+plot_grid(gg1, gg2)
+```
+
+---
+
+## Mesmo exemplo com histogramas
+
+
+```{r, echo=FALSE, message=FALSE, out.width="78%", cache=TRUE, fig.height=3, fig.width = 8, message = FALSE, dpi=500, fig.align='center'}
+# Second axis:
+gg <- gg + scale_y_continuous(
+  breaks = xbr,
+  labels = paste(100 * xbr, "%", sep = ""),
+  trans = "log10",
+  limits = max(abs(x$y))^c(-1, 1),
+  sec.axis = sec_axis(
+    trans = ~ . * 1, breaks = xbr,
+    labels = ifelse(xbr < 1, paste("1/", 1 / xbr, sep = ""), xbr)
+  )
+)
+
+# ---
+# Univariate distribution (histogram).
+
+gg <- ggplot(x, aes(x = y)) +
+  theme_bw() +
+  xlab("Fold-change")
+gg <- gg + geom_histogram(color = "firebrick", fill = "gray")
+gg1 = gg
+
+# Symmetric range, log scale.
+gg <- gg + scale_x_continuous(
+  breaks = xbr,
+  labels = ifelse(xbr < 1, paste("1/", 1 / xbr), xbr),
+  trans = "log10",
+  limits = max(abs(x$x))^c(-1, 1)
+)
+gg2 = gg
+
+# ---
+# Both figures into a single output figure.
+library(cowplot)
+plot_grid(gg1, gg2)
+
+```
+
+---
+
+## Dados e Modelos
+
+- Com estatística inferencial, apresentar minimamente 
+  + dados descritivos
+  + valores previstos pelo modelo (idealmente, com dados sobrepostos)
+  
+. . . 
+
+$\rightarrow$ Segundo dia do curso!
+
+
+
+
 
 
 ---

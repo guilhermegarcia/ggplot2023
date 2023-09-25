@@ -16,7 +16,7 @@
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Clique para copiar","success":"Copiado!","error":"Press Ctrl+C to Copy"})</script>
     <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xbcb861d07bb49cfa0b3411e4b70dd41","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x489100dcdf34029ab3c6ab5f66adfca","expires":14}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -218,6 +218,18 @@ class: inverse, center, middle
 
 ---
 
+# Visualização em contexto
+
+- Consideração importante: &lt;p style="color: red; display: inline;"&gt;**onde**&lt;/p&gt; estará a figura?
+  - Slides?
+  - Pôster?
+  - Artigo?
+  - Site?
+- Tudo isso afeta o &lt;p style="color: red; display: inline;"&gt;**conteúdo**&lt;/p&gt; e a &lt;p style="color: red; display: inline;"&gt;**estética**&lt;/p&gt; de um gráfico
+
+
+---
+
 class: inverse, center, middle
 
 ## Tipos de gráficos
@@ -354,13 +366,13 @@ glimpse(english)
 ## Painéis (*facets*)
 
 - Dados no **eixo y** comparados: um único eixo y com todos os painéis alinhados horizontalmente&lt;sup&gt;`*`&lt;/sup&gt;
-- Dados no **eixo x** comparados: painéis empilhados
+- Dados no **eixo x** comparados: painéis empilhados (*nomes de painéis podem ser longos demais*)
 - Matriz se os dados de cada painel não estiverem relacionados ou se o espaço for muito pequeno
 
 &lt;!-- ### Exemplo --&gt;
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" width="72%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
@@ -391,6 +403,93 @@ glimpse(english)
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
 
 &lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Legendas
+
+- As legendas não devem atrair muita atenção
+- Devem ser colocadas nas margens da figura
+- Se a legenda se referir a objetos únicos (por exemplo, uma linha por grupo), colocar a legenda ao lado do objeto correspondente facilita a leitura
+- *Colocar cores das legendas no título do gráfico (dia 2)*
+
+---
+
+### Exemplo
+
+&lt;img src="index_files/figure-html/unnamed-chunk-24-1.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Orientação
+
+- Geralmente: variável preditora no eixo y e variável resposta no x
+- **Tempo** também no eixo x (passado `\(\rightarrow\)` futuro, esquerda `\(\rightarrow\)` direita)
+- No entanto: se há uma ordem nos dados a serem comparados, barras/caixas horizontais são mais intuitivas
+
+---
+
+### Exemplo
+
+- Importante considerar questões estéticas: legendas com muito texto *vs.* dimensões da apresentação
+- Outras questões: número de níveis de um fator, ângulo do texto, contexto da apresentação
+
+&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Elementos extras
+
+- Informações redundantes devem ser retiradas (ex: repetir o eixo em painéis)
+- Elemetnos extras devem ser adicionados apenas se ajudam na leitura/interpretação
+  + ex: linha horizontal/vertical/diagonal no zero (ponto sem mudança)
+  
+---
+
+### Exemplo
+
+&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Eixos lineares e logarítmicos
+
+- Com dados comparados a um valor de referência, pode ser necessário transformar a escala em logarítmica, para que os valores acima e abaixo do valor de referência fiquem simétricos.
+
+. . . 
+
+- Exemplo: nos gráficos a seguir (esq. linear, dir. log) metade dos dados estão acima e metade abaixo do valor de referência
+
+---
+
+### Exemplo
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-27-1.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Mesmo exemplo com histogramas
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-28-1.png" width="78%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Dados e Modelos
+
+- Com estatística inferencial, apresentar minimamente 
+  + dados descritivos
+  + valores previstos pelo modelo (idealmente, com dados sobrepostos)
+  
+. . . 
+
+`\(\rightarrow\)` Segundo dia do curso!
+
+
+
+
 
 
 ---
@@ -458,7 +557,7 @@ ggplot(data = english, aes(x = AgeSubject,      # Camada de base: dados
   labs(x = "Idade", y = "Tempo de reação")      # Camada que nomeia os eixos
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 
