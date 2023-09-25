@@ -16,7 +16,7 @@
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Clique para copiar","success":"Copiado!","error":"Press Ctrl+C to Copy"})</script>
     <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x8fe86bcf6c74585911b637830980f3a","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xbcb861d07bb49cfa0b3411e4b70dd41","expires":14}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -67,7 +67,42 @@ class: title-slide, inverse, center, middle
   100% { width: calc(var(--slide-current) / var(--slide-total) * 100%); }
 }</style>
 
-## Apresentação
+## Boa tarde!
+
+&lt;p style="display: inline; color: red; font-weight: bold;"&gt;🎬 Este workshop será gravado&lt;/p&gt;
+
+Nosso programa para estes dois dias:
+
+.pull-left[
+
+**Dia 1**: slides + scripts
+- &lt;mark&gt;Dados contínuos&lt;/mark&gt;
+- Conceitos básicos
+- Intro ao `ggplot2`
+- Prática
+]
+
+.pull-right[
+
+**Dia 2**: scripts
+- &lt;mark&gt;Dados categóricos&lt;/mark&gt;
+- Visualizando modelos
+- Ajustes adicionais
+- Prática
+
+]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+📝 O material será postado no link após final do workshop: &lt;https://gdgarcia.ca/ggplot&gt;
+
+---
+
+## Gráficos e comunicação eficiente
+
+&lt;img src="index_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -98,11 +133,11 @@ class: inverse, center, middle
 - Somente médias estão presentes; não temos ideia da incerteza dessas médias (e.g., erro padrão)
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -113,11 +148,11 @@ class: inverse, center, middle
 - Aqui, vemos o erro padrão também: demonstração [**aqui**](https://guilherme.shinyapps.io/stats101)
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -127,11 +162,11 @@ class: inverse, center, middle
 - Melhor ainda: gráficos de caixa nos dão muito mais informação sobre a dispersão dos dados
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -143,11 +178,11 @@ class: inverse, center, middle
 - A figura nos permite comparar efeitos de duas variáveis sobre `Score`
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -158,11 +193,11 @@ class: inverse, center, middle
 - Total de variáveis: `Score ~ Feedback + Task + L1` (todos os preditores são *categóricos* aqui)
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -173,11 +208,11 @@ class: inverse, center, middle
 - Variáveis: `Score ~ Feedback + Task + L1 + ID`
 
 .pull-left[
-&lt;img src="index_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="index_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -214,19 +249,19 @@ glimpse(english)
 
 ### y contínuo e x categórico
 
-&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-15-2.png" width="50%" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-16-2.png" width="50%" /&gt;
 
 ---
 
 ### y contínuo e x categórico
 
-&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-16-2.png" width="50%" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-17-2.png" width="50%" /&gt;
 
 ---
 
 ### y e x contínuos
 
-&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-17-2.png" width="50%" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-18-2.png" width="50%" /&gt;
 
 ---
 
@@ -235,7 +270,7 @@ glimpse(english)
 .pull-left[
   
 
-&lt;img src="index_files/figure-html/unnamed-chunk-18-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -281,7 +316,7 @@ glimpse(english)
 
 - Definição apropriada (≥500 `dpi`) 🫠
 
-&lt;img src="index_files/figure-html/unnamed-chunk-19-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -325,7 +360,7 @@ glimpse(english)
 &lt;!-- ### Exemplo --&gt;
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-20-1.png" width="72%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" width="72%" style="display: block; margin: auto;" /&gt;
 
 
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
@@ -341,7 +376,7 @@ glimpse(english)
    + mesmas unidades
 
 
-&lt;img src="index_files/figure-html/unnamed-chunk-21-1.png" width="74%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" width="74%" style="display: block; margin: auto;" /&gt;
 
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
 
@@ -355,7 +390,7 @@ glimpse(english)
 
 .footnote[`*` Fonte: &lt;https://royal-statistical-society.github.io/datavisguide/&gt;]
 
-&lt;img src="index_files/figure-html/unnamed-chunk-22-1.png" width="78%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-23-1.png" width="78%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -423,7 +458,7 @@ ggplot(data = english, aes(x = AgeSubject,      # Camada de base: dados
   labs(x = "Idade", y = "Tempo de reação")      # Camada que nomeia os eixos
 ```
 
-&lt;img src="index_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="index_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 

@@ -13,3 +13,5 @@ fontawesome
 Hmisc
 cowplot
 kableExtra
+scales
+tidytext

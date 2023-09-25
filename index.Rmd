@@ -23,7 +23,9 @@ output:
 library(tidyverse)
 library(Hmisc)
 library(kableExtra)
+library(scales)
 library(languageR)
+library(tidytext)
 data(english)
 
 options(htmltools.dir.version = FALSE)
@@ -65,7 +67,112 @@ xaringanExtra::use_extra_styles(
 
 ```
 
-## Apresentação
+## Boa tarde!
+
+<p style="display: inline; color: red; font-weight: bold;">🎬 Este workshop será gravado</p>
+
+Nosso programa para estes dois dias:
+
+.pull-left[
+
+**Dia 1**: slides + scripts
+- <mark>Dados contínuos</mark>
+- Conceitos básicos
+- Intro ao `ggplot2`
+- Prática
+]
+
+.pull-right[
+
+**Dia 2**: scripts
+- <mark>Dados categóricos</mark>
+- Visualizando modelos
+- Ajustes adicionais
+- Prática
+
+]
+
+<br>
+
+<br>
+
+📝 O material será postado no link após final do workshop: <https://gdgarcia.ca/ggplot>
+
+---
+
+## Gráficos e comunicação eficiente
+
+```{r, warning=FALSE, message=FALSE,fig.align='center', fig.width=13, fig.height=7, fig.dpi=800, dev='svg', echo=FALSE}
+md = read_lines("mobydick.txt") |> 
+  as_tibble() |> 
+  rename(line = value) |>
+  mutate(chapter = str_extract(string = line, pattern = "CHAPTER \\d+")) |> 
+  fill(chapter, .direction = "down") |> 
+  mutate(chapter = str_remove(string = chapter, pattern = "CHAPTER ")) |> 
+  filter(line != "") |> 
+  filter(!str_detect(string = line, pattern = "CHAPTER .*")) |> 
+  mutate(line_n = row_number(),
+         chapter = as.numeric(chapter),
+         nWords = str_count(line, pattern = " ") + 1) |> 
+  group_by(chapter) |> 
+  mutate(totalWords = cumsum(nWords)) |>
+  ungroup()
+
+chapterLength = md |> 
+  group_by(chapter) |> 
+  dplyr::summarize(words = sum(nWords))
+
+sents1 = md |> 
+  unnest_tokens(word, line) |> 
+  inner_join(get_sentiments(lexicon = "bing")) |> 
+  mutate(sentBin = if_else(sentiment == "positive", 1, 0))
+
+sents2 = sents1 |> 
+  group_by(chapter, sentiment) |> 
+  count() |> 
+  group_by(chapter) |> 
+  mutate(prop = n / sum(n)) |> 
+  filter(sentiment == "positive") |> 
+  left_join(chapterLength, by = "chapter") |> 
+  mutate(sampleChapter = if_else(chapter %in% c(28, 36, 93, 125), 1, 0))
+
+ggplot(data = sents2, aes(x = chapter, y = prop)) + 
+  geom_hline(yintercept = 0.5, linetype = "dotted", size = 1) +
+  geom_vline(xintercept = 28, linetype = "dotdash", color = "gray", size = 1) +
+  geom_vline(xintercept = 36, linetype = "dotdash", color = "gray", size = 1) +
+  geom_vline(xintercept = 93, linetype = "dotdash", color = "gray", size = 1) +
+  geom_vline(xintercept = 125, linetype = "dotdash", color = "gray", size = 1) +
+  
+  annotate("text", x = 29, y = 1, label = "Ahab", 
+           angle = "90", vjust = 1, hjust = 1, fontface = "italic",
+           color = "gray50", size = 5) +
+  
+  annotate("text", x = 37, y = 1, label = "The Quarter-Deck", 
+           angle = "90", vjust = 1, hjust = 1, fontface = "italic",
+           color = "gray50", size = 5) +
+  
+  annotate("text", x = 94, y = 1, label = "The Castaway", 
+           angle = "90", vjust = -1, hjust = 1, fontface = "italic",
+           color = "gray50", size = 5) +
+  
+  annotate("text", x = 126, y = 1, label = "The Log and Line", 
+           angle = "90", vjust = 1, hjust = 1, fontface = "italic",
+           color = "gray50", size = 5) +
+  
+  geom_point(aes(size = words, color = prop), alpha = 0.5, show.legend = FALSE) +
+  theme_classic(base_size = 20) +
+  scale_size_continuous(range = c(4, 20)) + 
+  theme(legend.position = "top") +
+  scale_y_continuous(labels = percent_format()) + 
+  scale_x_continuous(breaks = c(seq(10, 135, 20))) +
+  labs(y = "% de palavras positivas",
+       x = "Capítulo",
+       size = "Número de palavras em capítulo:") + 
+  geom_point(data = sents2 |> filter(sampleChapter == 1), size = 3) +
+  scale_color_gradient(low = "skyblue", high = "red") +
+  geom_smooth(method = "loess", color = "grey30") +
+  coord_cartesian(ylim = c(0, 1))
+```
 
 ---
 
@@ -135,8 +242,8 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 18)) +
-  labs(y = "Figure efficiency",
-       x = "Amount of information in figure")
+  labs(y = "Eficiência",
+       x = "Quantidade de informação")
 ```
 ]
 
@@ -174,8 +281,8 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 18)) +
-  labs(y = "Figure efficiency",
-       x = "Amount of information in figure")
+  labs(y = "Eficiência",
+       x = "Quantidade de informação")
 ```
 ]
 
@@ -213,8 +320,8 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 18)) +
-  labs(y = "Figure efficiency",
-       x = "Amount of information in figure")
+  labs(y = "Eficiência",
+       x = "Quantidade de informação")
 ```
 ]
 
@@ -258,8 +365,8 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 18)) +
-  labs(y = "Figure efficiency",
-       x = "Amount of information in figure")
+  labs(y = "Eficiência",
+       x = "Quantidade de informação")
 ```
 ]
 
@@ -307,8 +414,8 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 18)) +
-  labs(y = "Figure efficiency",
-       x = "Amount of information in figure")
+  labs(y = "Eficiência",
+       x = "Quantidade de informação")
 ```
 ]
 
@@ -359,8 +466,8 @@ ggplot(data = tibble(x = c(-2.5, 2.5)),
   theme(axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 18)) +
-  labs(y = "Figure efficiency",
-       x = "Amount of information in figure")
+  labs(y = "Eficiência",
+       x = "Quantidade de informação")
 ```
 ]
 
