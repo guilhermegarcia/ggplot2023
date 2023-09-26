@@ -1271,7 +1271,19 @@ ggplot(data = english, aes(x = AgeSubject,      # Camada de base: dados
 
 ```
 
+---
 
+class: title-slide, inverse, center, middle
+
+## Parte 2: Prática + exercícios no RStudio
+
+---
+
+## Link importante
+
+- **Guarde o link abaixo** para o exercício que faremos mais tarde:
+
+# <a href = "https://bit.ly/workshop-ggplot" target = "_blank">bit.ly/workshop-ggplot</a>
 
 
 <!-- Dia 2 [aqui](test.html) -->
