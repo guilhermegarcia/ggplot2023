@@ -102,6 +102,12 @@ Nosso programa para estes dois dias:
 
 ## Gráficos e comunicação eficiente
 
+<div align = "right">
+
+<a href="https://gdgarcia.ca/mobydick" target = "_blank">Código</a>
+
+</div>
+
 ```{r, warning=FALSE, message=FALSE,fig.align='center', fig.width=13, fig.height=7, fig.dpi=800, dev='svg', echo=FALSE}
 md = read_lines("mobydick.txt") |> 
   as_tibble() |> 
@@ -173,6 +179,7 @@ ggplot(data = sents2, aes(x = chapter, y = prop)) +
   geom_smooth(method = "loess", color = "grey30") +
   coord_cartesian(ylim = c(0, 1))
 ```
+
 
 ---
 
