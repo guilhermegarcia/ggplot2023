@@ -108,7 +108,7 @@ Nosso programa para estes dois dias:
 
 </div>
 
-```{r, warning=FALSE, message=FALSE,fig.align='center', fig.width=13, fig.height=7, fig.dpi=800, dev='svg', echo=FALSE}
+```{r, warning=FALSE, message=FALSE,fig.align='center', fig.width=13, fig.height=7, fig.dpi=800, dev='svg', echo=FALSE, out.width="85%"}
 md = read_lines("mobydick.txt") |> 
   as_tibble() |> 
   rename(line = value) |>
