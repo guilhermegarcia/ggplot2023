@@ -539,6 +539,8 @@ ggplot(data =english, aes(x = AgeSubject, y = RTlexdec)) +
 
 ```
 
+- Demonstração <a href = "https://guilherme.shinyapps.io/stats101" target = "_blank">**aqui**</a>
+
 ---
 
 ### y contínuo e x categórico
