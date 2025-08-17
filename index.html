@@ -16,7 +16,7 @@
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Clique para copiar","success":"Copiado!","error":"Press Ctrl+C to Copy"})</script>
     <script src="libs/xaringanExtra-progressBar/progress-bar.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b1f1cdd68a5c415aab5ece01a59f39d8","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x6f1235db1d44d55bdeb70a9d01a97b5","expires":14}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -96,7 +96,7 @@ Nosso programa para estes dois dias:
 
 &lt;br&gt;
 
-📝 O material será postado no link após final do workshop: &lt;https://gdgarcia.ca/ggplot&gt;
+📝 O material será postado no link após final do workshop: &lt;https://gdgarcia.ca/ggplot.html&gt;
 
 ---
 
@@ -250,7 +250,7 @@ class: inverse, center, middle
 - Dados utilisados: &lt;mark&gt;`english`&lt;/mark&gt; (pacote `languageR`)
 
 
-```r
+``` r
 data(english)
 english = english |&gt; 
   select(RTlexdec, Familiarity, Word, AgeSubject)
@@ -519,7 +519,7 @@ class: inverse, center, middle
 - Antes de irmos ao RStudio: estes são os pacotes que usaremos
 
 
-```r
+``` r
 library(tidyverse) # ggplot2, tidyr, etc.
 library(Hmisc)     # para complementar estatística básica em ggplot2
 library(scales)    # para eixos mais flexíveis
@@ -542,7 +542,7 @@ library(languageR) # dados
 - A primeira camada (base) define a origem dos dados, que será "herdada" por outras camadas
 
 
-```r
+``` r
 camada_base(dados, aes(x = ..., y = ..., color = ..., ...)) +
  camada_1() + 
  camada_2() +
@@ -599,11 +599,11 @@ class: title-slide, inverse, center, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "16:9",
-"center": true,
-"slideNumberFormat": "%current% de %total%",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "ratio": "16:9",
+  "center": true,
+  "slideNumberFormat": "%current% de %total%",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

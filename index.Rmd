@@ -96,7 +96,7 @@ Nosso programa para estes dois dias:
 
 <br>
 
-📝 O material será postado no link após final do workshop: <https://gdgarcia.ca/ggplot>
+📝 O material será postado no link após final do workshop: <https://gdgarcia.ca/ggplot.html>
 
 ---
 
